@@ -1,8 +1,8 @@
 pipeline {
     agent {label 'windows'}
-	tools { 
+    tools { 
         git 'git' 
-    }
+          }
 
     environment {
         VERSION = "${env.BUILD_TAG}"
@@ -12,23 +12,13 @@ pipeline {
         disableConcurrentBuilds()
     }
 
-    stages {
-	    stage("Update Build's Display Name") {
-            steps {
-                script {
-                    currentBuild.displayName = "#${env.BUILD_NUMBER} - ${params.stack}"
-                }
-            }
-        }
-		
+	stages {		
 		stage("SCM-dev") {
-		    when {
-                // Only run dev stage if a "dev" is requested
-                	expression { params.stack == 'dev' }
-            	}
-            steps {
-			checkout scm
-            }
-        }
+		 steps {
+                script {
+		    checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], gitTool: 'git', submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/gembalisrinu3/test.git']]])
+						}
+				}
+		}
 	}
 	}
