@@ -24,7 +24,7 @@ pipeline {
                 	expression { params.stack == 'dev' }
             	}
             steps {
-				git 'https://github.com/gembalisrinu3/test.git'
+			checkout scm
             }
         }
 	}
