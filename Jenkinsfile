@@ -1,5 +1,8 @@
 pipeline {
     agent {label 'windows'}
+	tools { 
+        git 'git' 
+    }
 
     environment {
         VERSION = "${env.BUILD_TAG}"
